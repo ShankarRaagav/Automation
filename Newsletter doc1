@@ -37,12 +37,29 @@ module.exports = {
 
   
 
-  async value(loc,val)
+
+
+  async dselect()
   {
-    I.fillField(loc,val);
+    await I.selectOption("select#drop1", "doc 1");
   },
 
- 
 
+  async dropdisplay()
+  {
+    var opt = await I.grabTextFromAll('select#drop1');
+    let i;
+    console.log("Older newsletter dropdown options are:");
+    for (i=0; i<opt.length; i++)
+    {
+      let str = opt[i];
+      console.log(str);
+    }
+    assert(str, "pass");
+
+  },
+
+
+  
   
 };

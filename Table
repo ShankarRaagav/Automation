@@ -36,13 +36,18 @@ module.exports = {
   },
 
   
-
-  async value(loc,val)
+  async table()
   {
-    I.fillField(loc,val);
+    await I.scrollTo('text=table');
+    let val = I.grabTextFromAll("(//div[@class='widget-content'])[5]//table/tr");
+    let i;
+    console.log("Table contents are: ");
+    for(i=0; i<val.length; i++)
+    {
+      let eachval = val[i];
+      console.log(eachval);
+    }
   },
-
- 
 
   
 };

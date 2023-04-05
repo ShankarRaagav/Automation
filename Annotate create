@@ -1,0 +1,348 @@
+// enable I and another page object
+const { I } = inject();
+const log = require("../../config/logging").default;
+const settingBorder = require('../../pages/Annotation/AnnotationSettingsBorder.js');
+
+module.exports = {
+
+  createAnnotation: '//div[contains(@class,"sub-menu-icon-display")]//span[@class= "infoRiver light-comment subMenuIcon"]',
+  createAnnotation_Button: `//span[@role = "button"and @class = "infoRiver light-comment icon-button"]`,
+  AnnotationDropdown: `//div[@id = "annotation-toolbar"]//div[@class= "composite_label row-icon-arrow"]//span[@role = "button"]`,
+  AnnotationIcon: `//div[@id = "annotation-toolbar"]//span[@role = "button" and @aria-label="icon"]`,
+  inputAnnotation: '//div[@contenteditable="true" and contains(@aria-describedby,"placeholder-")]',
+  annotationText: '//div[@class="annotation-modal-text-container"]//p[text()="ANNOTTEXT"',
+  annotationMenu: '(//div[@class="annotation-menu"])[AnnotationNo]',
+  datapointLocator1: `//*[local-name()="g"and contains(@data-annotation ,"Purchases-WATERFALL")]//*`,
+  datapointLocator2: `//*[local-name()="g"and contains(@data-annotation ,"Amortization-WATERFALL")]//*`,
+  datapointLocator3: `//*[local-name()="g"and contains(@data-annotation ,"INTERIM_TOTAL_DATA_ROW-1-WATERFALL")]//*`,
+  AnnotationMousehoverElement: '(//div[@class= "annotation-modal-wrapper"])[AnnotationNo]',
+  AnnotationMousehoverElement_Trellis: '(//div[@class= "annotation-modal-wrapper annotation-modal-wrapper-border"])[AnnotationNo]',
+  trellis_datapointLocator1: `//*[local-name() = "g" and contains(@data-annotation , "datapoint-FAO VEGETABLE OIL PRICE INDEX~**~2017")][2]//*`,
+  trellis_datapointLocator2: `//*[local-name() = "g" and contains(@data-annotation, "FAO DAIRY FOOD PRICE INDEX~**~2017-Sum(World Food Price.Price)")][2]//*`,
+  trellis_datapointLocator3: `//*[local-name() = "g" and contains(@data-annotation , "FAO CEREAL PRICE INDEX~**~2018-Sum(World Food Price.Price)")][2]//*`,
+  matrix_datapointLocator1: `//*[local-name() = "g" and contains(@data-annotation , "Cases~||~Delta wave~**~Wed Feb 28 1900 00:00:00 GMT+0521 (India Standard Time)-Sum")]/*`,
+  matrix_datapointLocator4:`//*[local-name() = "g" and contains(@data-annotation , "Cases~||~Delta wave~**~Wednesday, 28 February, 1900-Sum(SA Covid Data.in %)")]/*`,
+  matrix_datapointLocator2: `//*[local-name()= "g" and contains(@data-annotation , "datapoint-Excess deaths~||~First wave~**~Wed Feb 28 1900 00:00:00 GMT+0521 (India Standard Time)-CountNonNull(SA Covid Data.Order2)-First wave")]`,
+  matrix_datapointLocator3: `//*[local-name() = "g" and contains(@data-annotation , "deaths~||~Omicron wave~**~Tue May 29 1900 00:00:00 GMT+0521 (India Standard Time)-CountNonNull(SA Covid Data.Order2)")]//*`,
+  editAnnotation: '//div[@class="annotation-menu"]//span[contains(text(),"Edit")]',
+  editTextArea: '//div[@class= "DraftEditor-editorContainer"]//span/span',
+  textArea: '(//div[@class= "annotation-modal-text-container"]//p)[AnnotationNo]',
+  deleteAnnotation: '//div[@class="annotation-menu"]//span[contains(text(),"Delete")]',
+  localSettingAnnotation: '//div[@class="annotation-menu"]//span[contains(text(),"Settings")]',
+  hideAllAnnotation: `//div[contains(@class ,"display-annotation-checkbox")]//input`,
+  settingsAnnotation: '//span[contains(text(),"Settings")]',
+  NormalChart_AxisLocator: `//*[local-name() = "g" and contains(@data-annotation ,"**~Material Expenses-category")]`,
+  Trellis_AxisLocator: `(//*[local-name() = "g" and contains(@data-annotation , "FAO SUGAR PRICE INDEX~**~2018-category")]//*)[1]`,
+  Trellis_RefLineLocator: `//*[local-name()= "g" and contains(@data-annotation , "datapoint-803368682-Sum(World Food Price.Price)-FAO VEGETABLE OIL PRICE INDEX")]//*`,
+  Trellis_CanvasLocator: `g[data-annotation = "datapoint-FOOD PRICE INDEX~**~2019-category"]`,
+  Matrix_AxisLocator: `//*[local-name() = "g" and contains(@data-annotation , "deaths~||~Delta wave~**~Sat Dec 30 1899 00:00:00 GMT+0521 (India Standard Time)-category")]`,
+  Matrix_RefLineLocator: `//*[local-name()  = "g" and contains(@data-annotation , "default-average-line-Sum(SA Covid Data.in %)-Cases~||~Delta wave")]//*`,
+  Matrix_CanvasLocator: `//*[local-name()  = "g" and contains(@data-annotation , "datapoint-Cases~||~Delta wave~**~Wed Feb 28 1900 00:00:00 GMT+0521 (India Standard Time)-CountNonNull(SA Covid Data.Order2)-Delta wave")]`,
+  Matrix_RefBandLocator: `(//*[local-name()  = "g" and contains(@data-annotation , "datapoint--1858976656-Sum(SA Covid Data.in %)-Cases~||~Omicron wave")])[8]`,
+  deletePopupConfirmation: 'Do you wish to delete?',
+  deletePopupInformation: 'This will delete the current annotation!',
+  NormalChart_canvasLocator: `g[data-annotation = "datapoint-NO_GROUP~**~Other Revenue-category"]`,
+  deleteProceedButton: '//button[text()="Proceed"]',
+  deleteCancelButton: '//button[text()="Cancel"]',
+  closePanel: '//div[@class="side-panel-close-action"]',
+  mousehoverOnChart: '//div[@class="ibcs-charts-container-wrapper"]',
+
+  StachedChartAnnoLocator1: '//*[local-name()="g"and contains(@data-annotation ,"Vinyl~**~1974")]//*',
+  StachedChartAnnoLocator2: '//*[local-name()="g"and contains(@data-annotation ,"8 - Track~**~1975")]//*',
+  StachedChartAnnoLocator3: '//*[local-name()="g"and contains(@data-annotation ,"Other~**~2002")]',
+  StachedChartAnnoLocator4: '//*[local-name()="g"]//*[contains(@class ,"y-axis-text") and (text()="15")]',
+  Stacked_AxisLocator: `//*[local-name() = "g" and contains(@data-annotation , "TOTAL_GROUP~**~2004")]//*`,
+  Stacked_CanvasLocator: 'g[data-annotation = "datapoint-TOTAL_GROUP~**~2008-category"]',
+
+  AnnotationNoteText1: '//*[text()="Note1AnnotationTextAlighnmnet"]/..',
+  AnnotationNoteText2: '//*[text()="Note1AnnotationTextAlighnmnet"]/../..',
+  fontStyleDropdown: '//div[@class="draft-editor-format-font-family"]//i[@class="custom-dropdown-icon ms-Icon ms-Icon--ChevronDownSmall "]',
+  //selectFontStyle: '//div[text()="Comic Sans MS"]',
+  fontSizeDropdown: '//div[@class="draft-editor-format-font-size"]//i',
+  selectFontSize: '//div[text()="14px"]',
+  fontBold: '//span[@class="ms-Icon ms-Icon--Bold toolbar-icon-button"]',
+  fontItalic: '//span[@class="ms-Icon ms-Icon--Italic toolbar-icon-button"]',
+  fontUnderline: '//span[@class="ms-Icon ms-Icon--Underline toolbar-icon-button"]',
+  fontColorPickerDropDown: '//i[@class="icon icon--ChevronDown icons8-ChevronDown bf-ui-colorpicker-icon-dropdown"]',
+  fontColourselctDataClick: '//div[@class="dropdown-selector-container"]',
+  fontcolorData: '//div[text()="Vinyl"]',
+  fontcolorSubData: '//div[text()="1975"]',
+  fontcolorSubsubData: '//div[@class="dropdown-list-icon"]/following-sibling::div',
+
+  drillDown:'//span[text()="Drill down"]',
+  drillUp:'//span[text()="Drill up"]',
+  drillDownDataPointer1:'//*[local-name() = "g" and contains(@data-annotation , "datapoint-Cases~||~Delta wave~||~Sun Apr 29 1900 00:00:00 GMT+0521 (India Standard Time)~**~1-Sum(SA Covid Data.in %)-Delta wave - Sun Apr 29 1900 00:00:00 GMT+0521 (India Standard Time)")]//*',
+  drillDownAxisLocator:'//*[local-name() = "g"]/*[text()="40"]',
+  drilldownCanvas:'(//*[@class="ibcs-charts-container chart-core-container"])[5]',
+  
+  verifyFontcolor: '(//div[@class= "annotation-modal-text-container"]//p)[AnnotationNo]/span',
+  verifyFontStyle: '(//div[@class= "annotation-modal-text-container"]//p)[AnnotationNo]/span/span',
+  verifyFontSize: '(//div[@class= "annotation-modal-text-container"]//p)[AnnotationNo]/span/span/span',
+  verifyboldItalicUnderline: '(//div[@class= "annotation-modal-text-container"]//p)[AnnotationNo]//b/em/u',
+
+  AnnotationNoteText1: '//*[text()="Note1AnnotationTextAlighnmnet"]/..',
+  AnnotationNoteText2: '//*[text()="Note1AnnotationTextAlighnmnet"]/../..',
+  AnnotationNoteText3:'//*[text()="Note1Edit"]/../..',
+  fontStyleDropdown: '//div[@class="draft-editor-format-font-family"]//i[@class="custom-dropdown-icon ms-Icon ms-Icon--ChevronDownSmall "]',
+  selectFontStyle: '//span[@title="Comic Sans MS"]',
+  fontSizeDropdown: '//div[@class="draft-editor-format-font-size"]//i',
+  selectFontSize: '//span[@title="14px"]',
+  fontBold: '//span[@class="ms-Icon ms-Icon--Bold toolbar-icon-button"]',
+  fontItalic: '//span[@class="ms-Icon ms-Icon--Italic toolbar-icon-button"]',
+  fontUnderline: '//span[@class="ms-Icon ms-Icon--Underline toolbar-icon-button"]',
+  fontColorPickerDropDown: '//i[@class="icon icon--ChevronDown icons8-ChevronDown bf-ui-colorpicker-icon-dropdown"]',
+  fontColourselctDataClick: '//div[@class="dropdown-selector-container"]',
+  fontcolorData: '//div[text()="Vinyl"]',
+  fontcolorSubData: '//div[text()="1975"]',
+  fontcolorSubsubData: '//div[@class="dropdown-list-icon"]/following-sibling::div',
+  fontcolorDataLicence: '//div[text()="Licenses"]',
+  // fontcolorDataVeg: '(//div[text()="FAO VEGETABLE OIL PRICE INDEX"])/parent::div[@class="value-mention-title-container"]',
+  fontcolorDataVeg: '//div[text()="FAO VEGETABLE OIL PRICE INDEX"]/parent::div[@class = "dropdown-list-container"]',
+  fontcolorDataVeg1: '//div[text()="FAO VEGETABLE OIL PRICE INDEX"]/parent::div[@class="value-mention-title-container"]',
+
+  fontcolorDatayear: '//div[text()="2004"]',
+
+  verifyFontcolor: '(//div[@class= "annotation-modal-text-container"]//p)[AnnotationNo]/span',
+  verifyFontStyle: '(//div[@class= "annotation-modal-text-container"]//p)[AnnotationNo]/span/span',
+  verifyFontSize: '(//div[@class= "annotation-modal-text-container"]//p)[AnnotationNo]/span/span/span',
+  verifyboldItalicUnderline: '(//div[@class= "annotation-modal-text-container"]//p)[AnnotationNo]//b/em/u',
+
+  textEqualsXpath: '(//div[text()="TEXT"])[NUMBER]/..',
+  closeAnnotationPanel: '//i[@class="side-panel-close-icon ms-Icon ms-Icon--ChromeClose"]',
+  /**
+   * click Create in Annotation dropdown
+   *
+   */
+  async clickCreateAnnotation() {
+    log.info("clickCreateAnnotation");
+    await I.click(this.AnnotationDropdown);
+    await I.click(this.createAnnotation);
+  },
+
+  /**
+  * Apply Annotation on the chart 
+  *
+  */
+  async applyAnnotation(locator) {
+    //Example for locator
+    /*
+
+    (//*[contains(@class,"groupedbar-chart")]//*[contains(@data-annotation,"Brazil-AC")]//*[@data-row-index="1"])[1]
+
+    */
+    log.info("applyAnnotation");
+    await I.click(locator);
+  },
+
+  /**
+* Fill the Annotation text
+*
+*/
+  async fillAnnotationText(AnnotText) {
+    log.info("fillAnnotationText");
+    await I.fillField(this.inputAnnotation, AnnotText)
+    await I.click(this.AnnotationIcon);
+  },
+
+  /**
+* Fill the Annotation text
+*
+*/
+  async fillAnnotationTextWithoutclick(AnnotText) {
+    log.info("fillAnnotationText");
+    await I.fillField(this.inputAnnotation, AnnotText)
+  },
+  /**
+     * Fill the Annotation text
+     *
+     */
+  async editText(element, AnnotText) {
+    log.info("fillAnnotationText");
+    await I.fillField(element, AnnotText)
+    await I.wait(2)
+
+  },
+
+  /**
+   * Hover the Annotation text
+   *
+   */
+  async hoverAnnotationText(AnnotText) {
+    log.info("fillAnnotationText");
+    var loc = this.annotationText.replace('ANNOTTEXT', AnnotText)
+    await I.moveCursorTo(loc)
+  },
+
+  /**
+ * click on the Annotation menu
+ *
+ */
+  async clickAnnotationMenu(element, AnnotationNo) {
+    log.info("clickAnnotationMenu");
+    element = element.replace("AnnotationNo", AnnotationNo)
+    await I.click(element);
+  },
+
+  /**
+ * click on the localseting menu
+ *
+ */
+  async clicklocalSettingMenu() {
+    log.info("clicklocalSettingMenu");
+    await I.click(this.localSettingAnnotation);
+  },
+
+  /**
+ * close Side Annotation Panel
+ *
+ */
+  async closeSideAnnotationPanel() {
+    log.info("closeAnnotationPanel");
+    await I.click(this.closeAnnotationPanel);
+  },
+
+  async verifyText(element, editedTextexpected, AnnotationNo) {
+    log.info("verifyText");
+    element = element.replace("AnnotationNo", AnnotationNo)
+    var editedTextActual = await I.grabTextFrom(element)
+    await I.say("EditedText Value: " + editedTextActual);
+    await I.assertEqual(editedTextexpected.trim(), editedTextActual.trim(), editedTextexpected + " Expected Edited text is not equal to actual " + editedTextActual);
+  },
+  async verifyTextIfElse(element, editedTextexpected, editedTextexpected1, AnnotationNo) {
+    log.info("verifyText");
+    element = element.replace("AnnotationNo", AnnotationNo)
+    var editedTextActual = await I.grabTextFrom(element)
+    await I.say("EditedText Value: " + editedTextActual);
+    if (editedTextActual.trim() == editedTextexpected.trim()) { }
+    else if (editedTextActual.trim() == editedTextexpected1.trim()) { }
+    else
+      await I.assertEqual(editedTextexpected.trim(), editedTextActual.trim(), editedTextexpected + " Expected Edited text is not equal to actual " + editedTextActual);
+  },
+
+  /**
+   * click Edit from Annotation menu
+   *
+   */
+  async clickEditAnnotationMenu() {
+    log.info("clickEditAnnotationMenu");
+    await I.click(this.editAnnotation);
+  },
+
+  /* Hide All Annotation
+  *
+  */
+  async HideAllAnnotation() {
+    log.info("HideAllAnnotation");
+    await I.click(this.AnnotationDropdown);
+    await I.click(this.hideAllAnnotation);
+  },
+  /* 
+  click on settings
+      *
+      */
+  async clickSetting() {
+    log.info("ClickSetting");
+    await I.click(this.AnnotationDropdown);
+    await I.click(this.settingsAnnotation);
+  },
+
+  /**
+  * click Delete from Annotation menu
+  *
+  */
+  async clickDeleteAnnotationMenu() {
+    log.info("clickDeleteAnnotationMenu");
+    await I.click(this.deleteAnnotation);
+    await I.wait(3)
+    await I.see(this.deletePopupConfirmation)
+    await I.see(this.deletePopupInformation)
+  },
+
+  /**
+ * click Proceed in Delete Confirmation popup
+ *
+ */
+  async clickProceedDeletePopup() {
+    log.info("clickProceedDeletePopup");
+    await I.click(this.deleteProceedButton);
+  },
+
+  /**
+ * click Cancel in Delete Confirmation popup
+ *
+ */
+  async clickCancelDeletePopup() {
+    log.info("clickCancelDeletePopup");
+    await I.click(this.deleteCancelButton);
+  },
+
+  async clickOnSpecificArea_Chart(Element, X, Y) {
+    const { t } = I.helpers.TestCafe;
+
+    await t.click(Selector(Element), {
+      offsetX: X,
+      offsetY: Y
+    })
+  },
+
+  async selectText(element) {
+    await I.click(element);
+    await I.doubleClick(element);
+    await I.wait(2);
+    await I.doubleClick(element);
+   // await I.presskeyevent('ctrl+a')
+    await I.pressKey("Ctrl+a");
+  },
+
+  async applyallTextFormattingforStacked() {
+    await this.applyallTextFormatting();
+    await I.click(this.fontcolorData);
+    await I.click(this.fontcolorSubData);
+    await I.click(this.fontcolorSubsubData);
+  },
+  async applyallTextFormatting() {
+    await I.click(this.fontStyleDropdown);
+    await I.click(this.selectFontStyle);
+    await I.click(this.fontSizeDropdown);
+    await I.click(this.selectFontSize);
+    await I.click(this.fontBold);
+    await I.click(this.fontItalic);
+    await I.click(this.fontUnderline);
+    await I.click(this.fontColorPickerDropDown);
+    await I.click(this.fontColourselctDataClick);
+
+  },
+  async applyallTextFormattingforNormal() {
+    await this.applyallTextFormatting();
+    await I.click(this.fontcolorDataLicence);
+    //await I.click(this.fontcolorSubData);
+    await I.click(this.fontcolorSubsubData);
+  },
+
+  async applyallTextFormattingforTrellis() {
+    await this.applyallTextFormatting();
+    await I.click(this.fontcolorDataVeg);
+    await I.click(this.fontcolorDatayear);
+    await I.click(this.fontcolorSubsubData);
+  },
+  async applyallTextFormattingforMatrix() {
+    await this.applyallTextFormatting();
+    // this.clicktextEquals(this.textEqualsXpath,"Cases","2")
+    await I.click('(//div[text()="Cases"])[2]')
+    //this.clicktextEquals(this.textEqualsXpath,"Delta wave","5");
+    //this.clicktextEquals(this.textEqualsXpath,"Saturday, 30 December, 1899","10");
+    //this.clicktextEquals(this.textEqualsXpath,"AC, 1899","1");
+    await I.click('(//div[text()="Delta wave"])[5]')
+    await I.click('(//div[text()="Saturday, 30 December, 1899"])[1]')
+    await I.click('(//div[text()="AC"])[1]')
+  },
+
+  async clicktextEquals(element, text, array) {
+    element = element.replace("TEXT", text)
+    element = element.replace("NUMBER", array)
+    await I.click(element)
+  }
+
+};
+
+

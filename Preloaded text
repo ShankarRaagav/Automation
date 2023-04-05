@@ -35,14 +35,16 @@ module.exports = {
     I.waitForVisible("span#blogsmenu");
   },
 
-  
 
-  async value(loc,val)
+
+
+  async text(loc)
   {
-    I.fillField(loc,val);
+    let str = await I.grabAttributeFrom(loc, 'value');
+    console.log('Value retrieved from preloaded text box is: [${str}]');
   },
 
- 
+  
 
   
 };

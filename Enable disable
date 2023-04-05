@@ -35,14 +35,30 @@ module.exports = {
     I.waitForVisible("span#blogsmenu");
   },
 
-  
-
-  async value(loc,val)
+  async btncheck()
   {
-    I.fillField(loc,val);
+    let x = I.grabTextFrom("//h2[text()='Enabled Button']");
+    console.log(x);
+    if((await x).includes("Enabled"))
+    {
+      console.log('Button 2 is enabled');
+    }
+    else
+    {
+      console.log('Button 2 is diabled');
+    }
+    I.wait(2);
+
+    let y = I.grabTextFrom("//h2[text()='Disabled Button']");
+    console.log(y);
+    if((y).includes("Disabled"))
+    {
+      console.log('Button 1 is disabled');
+    }
+    else
+    {
+      console.log('Button 1 is enabled');
+    }
   },
-
- 
-
   
 };

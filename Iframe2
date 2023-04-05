@@ -35,11 +35,17 @@ module.exports = {
     I.waitForVisible("span#blogsmenu");
   },
 
-  
 
-  async value(loc,val)
+
+  async frame()
   {
-    I.fillField(loc,val);
+    await I.scrollTo('text=Iframe1 & Iframe2');
+    await I.switchTo("//iframe[@id='iframe2']");
+    console.log('Iframe1 is switched to Iframe2');
+    await I.wait(2);
+    let i = I.grabTextFrom('#iframe2');
+    console.log('[${i}]');
+    assert("Error", i, "pass");
   },
 
  

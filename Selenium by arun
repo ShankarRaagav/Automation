@@ -37,12 +37,24 @@ module.exports = {
 
   
 
-  async value(loc,val)
+
+  async hoverTo()
   {
-    I.fillField(loc,val);
+    await I.moveCursorTo("span#blogsmenu");
   },
 
- 
 
-  
+  async select()
+  {
+    await I.click("//span[text()='SeleniumByArun']");
+  },
+
+  async validate()
+  {
+    assert(await I.grabCurrentUrl, "https://selenium-by-arun.blogspot.com/","pass");
+  },
+
+
 };
+  
+

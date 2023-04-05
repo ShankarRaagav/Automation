@@ -37,12 +37,16 @@ module.exports = {
 
   
 
-  async value(loc,val)
+
+  async selectflip()
   {
-    I.fillField(loc,val);
+    await I.click('Flipkart');
   },
 
- 
+  async validateflip()
+  {
+    assert(await I.grabCurrentUrl, "http://flipkart.com/","pass");
+  },
 
   
 };

@@ -42,7 +42,18 @@ module.exports = {
     I.fillField(loc,val);
   },
 
- 
+
+  async check()
+  {
+    let ctrUrl = I.grabCurrentUrl();
+    console.log('Current URL is [${ctrUrl}] ');
+    let str =  I.grabAttributeFrom('input.gsc-input', 'value');
+    console.log('Entered text in the searchbox is [${str}] ');
+    let result = ctrUrl.includes(str);
+    assert(result, "pass");
+    
+  },
+
 
   
 };
