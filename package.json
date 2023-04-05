@@ -1,0 +1,27 @@
+{
+  "name": "learningrepo-playwright",
+  "version": "1.0.0",
+  "description": "Playwright playground",
+  "main": "n",
+  "scripts": {
+    "test": "npx codeceptjs run"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sabareesh-r23/learningrepo-playwright.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sabareesh-r23/learningrepo-playwright/issues"
+  },
+  "homepage": "https://github.com/sabareesh-r23/learningrepo-playwright#readme",
+  "dependencies": {
+    "allure": "0.0.0",
+    "codeceptjs": "^3.3.6",
+    "codeceptjs-assert": "0.0.5"
+  },
+  "devDependencies": {
+    "playwright": "^1.18.1"
+  }
+}
