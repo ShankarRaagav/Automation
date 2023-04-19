@@ -1,0 +1,121 @@
+const { I } = inject();
+const log = require('../../config/logging').default;
+const { event } = require('codeceptjs');
+const { config } = require('../../codecept.conf');
+
+const parallelRun = require('../../pages/ParallelRunBase')  // in the import statement 
+var chunkDetailMap; //as a global variable 
+//const Report_url = "https://app.powerbi.com/groups/16578ee2-acf8-4611-863a-02e5168c2883/reports/68df29fa-490a-4d7c-8a9b-7758147d2aec/ReportSection6ca846c35e7600083206"
+const Report_url ="https://app.powerbi.com/groups/16578ee2-acf8-4611-863a-02e5168c2883/reports/637ffe6d-e6c2-4b32-804d-24fea8eded3f/ReportSection6ca846c35e7600083206"
+const loginUtils = require('../../pages/LoginUtils');
+const menu = require('../../pages/Annotation/AnnotationCreate.js')
+// const settingBorder = require('../../pages/Annotation/AnnotationSettingsBorder.js')
+// const settingMarker = require('../../pages/Annotation/AnnotationSettingsMarker.js')
+// const settingIndicator = require('../../pages/Annotation/AnnotationSettingsIndicator.js')
+// const vrtlUtils = require('../../utils/vrtUtils')
+// const allignment = require('../../pages/Annotation/AnnotationSettingsTextAlign.js')
+
+if (process.env.NODE_ENV !== 'production') {
+  const dotenv = require('dotenv')
+  dotenv.config()
+}
+
+Feature("Annotation_Normal");
+
+BeforeSuite(async ({ I }) => {
+  /* 
+    if(process.env.chunkDetails != ''){
+  
+      chunkDetailMap = new Map(JSON.parse(process.env.chunkDetails))
+  
+   } */
+  if (process.env.NEW_WINDOW == 'N') {
+    await I.say('Inside Process ENV New Window ..')
+    await I.OpenNewWindow("BeforeSuite")
+    await I.OpenNewWindow("https://app.powerbi.com/")
+    process.env.NEW_WINDOW = 'Y'
+  }
+
+});
+
+AfterSuite(async ({ I }) => {
+  await I.gotoMainWindow();
+  /*  await I.closeNewWindow();  
+   await I.OpenNewWindow("AfterSuite"); */
+});
+
+let reset_error = '';
+let login_report = false
+Before(async ({ I }) => {
+  log.info('=============Feature: Inforiver Charts Annotation =============');
+  if (login_report == false) {
+    await loginUtils.loginToPowerBI(process.argv[4])
+    login_report = true
+  }
+  await loginUtils.loginTheReport(Report_url)
+})
+
+After(async ({ I }) => {
+  // await I.refreshPage()
+  // await I.wait(50)
+  await I.gotoMainWindow();
+
+})
+
+var TestName;
+var FeatureName;
+
+event.dispatcher.on(event.test.before, async (test) => {
+  TestName = test.title;
+})
+
+event.dispatcher.on(event.suite.before, async (suite) => {
+  FeatureName = suite.title;
+})
+
+async function isVisible(ele) {
+  let high = await I.grabNumberOfVisibleElements(ele)
+  if (high > 0)
+    return true
+  else
+    return false
+}
+
+Scenario('Annotation_NormalChart_Create_Hide', async ({ I }) => {
+  let folderName = await parallelRun.fetchChunkName(__filename, chunkDetailMap)
+  let overallres = 'pass'
+  await menu.clickCreateAnnotation()
+  await menu.applyAnnotation(menu.datapointLocator1)
+  await menu.fillAnnotationText("Note1")
+  await menu.clickCreateAnnotation()
+  await menu.applyAnnotation(menu.datapointLocator2)
+  await menu.fillAnnotationText("Note2")
+  await menu.clickCreateAnnotation()
+  await menu.applyAnnotation(menu.datapointLocator3)
+  await menu.fillAnnotationText("Note3")
+  await menu.clickCreateAnnotation()
+  await menu.applyAnnotation(menu.NormalChart_AxisLocator)
+  await menu.fillAnnotationText("Note1 Axis Annotation")
+  await menu.clickCreateAnnotation()
+  await I.clickOnSpecificChartArea(menu.NormalChart_canvasLocator, 200, 0)
+  await menu.fillAnnotationText("Note1 Canvas Annotation")
+  await I.moveCursorTo(menu.mousehoverOnChart)
+
+  let resArray = []
+  resArray.push(await vrtlUtils.trytoVisualCompare(TestName, "NormalAnnotationCreate", folderName))
+
+  await menu.HideAllAnnotation()
+  await I.moveCursorTo(menu.mousehoverOnChart)
+  resArray.push(await vrtlUtils.trytoVisualCompare(TestName, "NormalAnnotationHide", folderName))
+
+  let failString = ""
+  if (resArray.filter(function (x) { return x == "pass" }).length != 2) {
+    failString = failString + `Image Comparison`
+    await I.assert(failString, "", `Failed due to ${failString}`);
+  }
+  else {
+    await I.assert(failString, "", `Image Comparison Passed`);
+  }
+
+}).tag('@XPC-11107').tag('@Annotation_Normal').tag('@Annotation').tag('@Regression');
+

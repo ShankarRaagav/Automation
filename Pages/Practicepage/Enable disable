@@ -1,0 +1,64 @@
+const assert = require("assert");
+
+const I = actor();
+
+const Flipkart = "a[text() = 'Flipkart' ] ";
+//const Button1 = 'button#but1';
+//const Button2 = 'button#but2';
+
+
+module.exports = {
+
+
+  username:  'input[name="userid"]',
+  email: 'raagav@gmail.com',
+  paswd: 'input[name="pswrd"]',
+  pass: '010996',
+  login: '#form input[type="button"]',
+  content: 'textarea[cols="80"]',
+  text: 'Welcome to Omayo Blogspot. Please share you thoughts with our blog!!!',
+  //const blogs = 'span[id="blogsmenu"]',
+  //const Button1 = 'button#but1',
+  //const Button2 = 'button#but2',
+  svalue: "subscribe",
+  sbox: 'input.gsc-input',
+  Search: 'input.gsc-search-button',
+  Dropdown: 'button.dropbtn',
+  preloadtext: '#textbox1',
+
+
+  goto() {
+    I.amOnPage("http://omayo.blogspot.com/");  
+    I.refreshPage();
+    I.executeScript(() => sessionStorage.clear());
+    I.executeScript(() => console.error("Boom!"));
+    I.waitForVisible("span#blogsmenu");
+  },
+
+  async btncheck()
+  {
+    let x = I.grabTextFrom("//h2[text()='Enabled Button']");
+    console.log(x);
+    if((await x).includes("Enabled"))
+    {
+      console.log('Button 2 is enabled');
+    }
+    else
+    {
+      console.log('Button 2 is diabled');
+    }
+    I.wait(2);
+
+    let y = I.grabTextFrom("//h2[text()='Disabled Button']");
+    console.log(y);
+    if((y).includes("Disabled"))
+    {
+      console.log('Button 1 is disabled');
+    }
+    else
+    {
+      console.log('Button 1 is enabled');
+    }
+  },
+  
+};

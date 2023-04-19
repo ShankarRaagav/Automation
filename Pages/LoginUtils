@@ -1,0 +1,27 @@
+power bi - https://powerbi.microsoft.com/en-gb/
+
+have an account sign in - //a[@id='hero_CTA-2_have-an-account-sign-in']
+
+enter email - //input[@id='email']
+
+submit - //button[@id='submitBtn']
+
+use your password instead -//a[@id='idA_PWD_SwitchToPassword']
+
+enter password - //input[@id='i0118']
+
+stay signed in no - //input [@id='idBtn_Back']
+
+test - //span[@data-value='test']
+
+edit - //button[@id='editBtn']
+
+collapse filter - //button[@class='btn collapseIcon pbi-borderless-button glyphicon glyph-mini pbi-glyph-doublechevronright']
+
+lollipop chart - //span[@class='inforiver-charts light-pin-portrait icon-button']
+
+vertical lollipop chart - //span[@class='chart-list-icon']
+
+
+
+use - //a[@id="signInAnotherWay"]
